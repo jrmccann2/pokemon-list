@@ -17,9 +17,18 @@ class PokeDisplay extends Component {
 
   toggleEdit() {
     if (this.state.editing) {
-      this.setState({editing: false}); 
+      this.setState({
+        editing: false,
+        pokeName: "",
+        pokeImage: ""
+      }); 
     } else {
       this.setState({editing: true});
+      const updatedPokemon = {
+        name: this.state.pokeName,
+        image: this.state.pokeImage
+      }
+      this.props.updateList(updatedPokemon)
     }
   }
 

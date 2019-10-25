@@ -4,6 +4,8 @@ import "./App.css";
 import PokeDisplay from "./components/PokeDisplay/PokeDisplay";
 import UserInput from "./components/UserInput/UserInput";
 
+let id = 0;
+
 class App extends Component {
   constructor() {
     super();
@@ -25,15 +27,16 @@ class App extends Component {
 
   handleClick() {
     const { name, image } = this.state;
-    const poke = { name, image };
+    const poke = { id, name, image };
     this.setState({
       pokemonArray: [...this.state.pokemonArray, poke],
       name: "",
       image: ""
     });
+    id++
   }
 
-  updateList(){
+  updateList(updatedPokemon){
 
   }
 
@@ -41,7 +44,7 @@ class App extends Component {
     const pokeDisplayCards = this.state.pokemonArray.map((pokemon, index) => {
       return (
         <PokeDisplay
-          key={index}
+          key={pokemon.id}
           image={pokemon.image}
           name={pokemon.name}
           updateList={this.updateList}
