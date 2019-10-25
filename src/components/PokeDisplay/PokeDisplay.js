@@ -1,13 +1,51 @@
-import React from 'react'
-import './PokeDisplay.css'
+import React, { Component } from "react";
+import "./PokeDisplay.css";
 
-export default function (props){
-  return (
-    <div className="user-display--component">
-      <div>
-        <p>{props.name}</p>
-        <img src={props.image} alt='' />
+class PokeDisplay extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editing: false,
+      pokeName: "",
+      pokeImage: ""
+    };
+
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  toggleEdit() {
+    if (this.state.editing) {
+      this.setState({editing: false}); 
+    } else {
+      this.setState({editing: true});
+    }
+  }
+
+  handleChange(event){
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  render() {
+    return (
+      <div className="user-display--component">
+        {this.state.editing ? (
+          <div>
+            <input name="pokeName" value={this.state.pokeName} onChange={this.handleChange} />
+            <input name="pokeImage" value={this.state.pokeImage} onChange={this.handleChange} />
+            <button onClick={this.toggleEdit}>Save Changes</button>
+          </div>
+        ) : (
+          <div>
+            <p>{this.props.name}</p>
+            <img src={this.props.image} alt="pokemon" />
+            <button onClick={this.toggleEdit}>Edit</button>
+          </div>
+        )}
       </div>
-    </div>
-  )
+    );
+  }
 }
+
+export default PokeDisplay;

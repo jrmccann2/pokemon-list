@@ -1,39 +1,53 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-import PokeDisplay from './components/PokeDisplay/PokeDisplay'
-import UserInput from './components/UserInput/UserInput'
+import PokeDisplay from "./components/PokeDisplay/PokeDisplay";
+import UserInput from "./components/UserInput/UserInput";
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
-      name: '',
-      image: '',
-      pokemonArray: []
-    }
-    this.handleInput = this.handleInput.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+      name: "",
+      image: "",
+      pokemonArray: [],
+      editing: false
+    };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.updateList = this.updateList.bind(this);
   }
 
-  handleInput(event){
-    this.setState({[event.target.name]: event.target.value})
+  handleInput(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleClick(){
-    const {name, image} = this.state
-    const poke = {name: name, image: image}
-    this.setState({pokemonArray: [...this.state.pokemonArray, poke], name: '', image: ''})
+  handleClick() {
+    const { name, image } = this.state;
+    const poke = { name, image };
+    this.setState({
+      pokemonArray: [...this.state.pokemonArray, poke],
+      name: "",
+      image: ""
+    });
   }
 
-  render(){
+  updateList(){
+
+  }
+
+  render() {
     const pokeDisplayCards = this.state.pokemonArray.map((pokemon, index) => {
       return (
-        <PokeDisplay key={index} image={pokemon.image} name={pokemon.name} />
-      )
-    })
+        <PokeDisplay
+          key={index}
+          image={pokemon.image}
+          name={pokemon.name}
+          updateList={this.updateList}
+        />
+      );
+    });
     return (
       <div className="app--component">
         <h3>Pokemon Catch 'em All</h3>
@@ -43,12 +57,9 @@ class App extends Component {
           name={this.state.name}
           image={this.state.image}
         />
-        <section className="users--container">
-          {pokeDisplayCards}
-        </section>
+        <section className="users--container">{pokeDisplayCards}</section>
       </div>
     );
-
   }
 }
 
