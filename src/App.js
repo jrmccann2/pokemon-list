@@ -13,8 +13,7 @@ class App extends Component {
     this.state = {
       name: "",
       image: "",
-      pokemonArray: [],
-      editing: false
+      pokemonArray: []
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -39,8 +38,8 @@ class App extends Component {
   updateList(updatedPokemon){
     const indexOfPokemonToUpdate = this.state.pokemonArray.findIndex( pokemon => pokemon.id === updatedPokemon.id)
     const copyOfPokemonArray = [...this.state.pokemonArray]
-    const updatedPokemonArray = copyOfPokemonArray.splice(indexOfPokemonToUpdate, 1, updatedPokemon)
-    this.setState({pokemonArray: updatedPokemonArray})
+    copyOfPokemonArray.splice(indexOfPokemonToUpdate, 1, updatedPokemon)
+    this.setState({pokemonArray: copyOfPokemonArray})
   }
 
   render() {

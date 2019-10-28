@@ -12,29 +12,29 @@ class PokeDisplay extends Component {
     };
 
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   toggleEdit() {
     if (this.state.editing) {
-      this.setState({
-        editing: false,
-        pokeName: "",
-        pokeImage: ""
-      }); 
-    } else {
       const updatedPokemon = {
         id: this.props.id,
         name: this.state.pokeName,
         image: this.state.pokeImage
-      }
-      this.props.updateList(updatedPokemon)
-      this.setState({editing: true});
+      };
+      this.props.updateList(updatedPokemon);
+      this.setState({
+        editing: false,
+        pokeName: "",
+        pokeImage: ""
+      });
+    } else {
+      this.setState({ editing: true });
     }
   }
 
-  handleChange(event){
-    this.setState({[event.target.name]: event.target.value})
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -42,8 +42,16 @@ class PokeDisplay extends Component {
       <div className="user-display--component">
         {this.state.editing ? (
           <div>
-            <input name="pokeName" value={this.state.pokeName} onChange={this.handleChange} />
-            <input name="pokeImage" value={this.state.pokeImage} onChange={this.handleChange} />
+            <input
+              name="pokeName"
+              value={this.state.pokeName}
+              onChange={this.handleChange}
+            />
+            <input
+              name="pokeImage"
+              value={this.state.pokeImage}
+              onChange={this.handleChange}
+            />
             <button onClick={this.toggleEdit}>Save Changes</button>
           </div>
         ) : (
