@@ -23,12 +23,13 @@ class PokeDisplay extends Component {
         pokeImage: ""
       }); 
     } else {
-      this.setState({editing: true});
       const updatedPokemon = {
+        id: this.props.id,
         name: this.state.pokeName,
         image: this.state.pokeImage
       }
       this.props.updateList(updatedPokemon)
+      this.setState({editing: true});
     }
   }
 

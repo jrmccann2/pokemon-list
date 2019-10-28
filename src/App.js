@@ -37,7 +37,10 @@ class App extends Component {
   }
 
   updateList(updatedPokemon){
-
+    const indexOfPokemonToUpdate = this.state.pokemonArray.findIndex( pokemon => pokemon.id === updatedPokemon.id)
+    const copyOfPokemonArray = [...this.state.pokemonArray]
+    const updatedPokemonArray = copyOfPokemonArray.splice(indexOfPokemonToUpdate, 1, updatedPokemon)
+    this.setState({pokemonArray: updatedPokemonArray})
   }
 
   render() {
@@ -45,6 +48,7 @@ class App extends Component {
       return (
         <PokeDisplay
           key={pokemon.id}
+          id={pokemon.id}
           image={pokemon.image}
           name={pokemon.name}
           updateList={this.updateList}
